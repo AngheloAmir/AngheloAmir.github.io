@@ -1,0 +1,693 @@
+*
+{
+	padding : 0;
+	margin : 0;
+}
+
+body
+{
+	background : rgb(200, 200, 230, 0.3);
+	color : black;
+}
+
+h4
+{
+	font-size : 0.8em;
+	margin : 3% 0 -3% 0;
+}
+
+#mainHTML
+{
+	display : block;
+}
+
+#helpHTML
+{
+	display : none;
+}
+
+#hidden
+{
+	display : none;
+}
+
+#halt
+{
+	position : fixed;
+	left : 35%;
+	top : 10em;
+	width : 30%;
+	background : rgba(100, 100, 100, 0.6);
+	text-align : center;
+	display : none;
+}
+
+#blackbg
+{
+	display : none;
+	position : fixed;
+	left : 0%;
+	top : 0%;
+	width : 100%;
+	height : 120vh;
+	z-index : 1;
+	background : rgba(0, 0, 0, 0.5);
+}
+
+/*The style of the top of a  window div box*/
+.top
+{
+	font-weight : bold;
+	color : darkblue;
+	background : linear-gradient(180deg, #c0c0ff, #8888f1);
+	padding-left : 0.3em;
+}
+
+/*=====================================================================*/
+/*	background: linear-gradient(135deg, #32d6bc, #7551e7); */
+header
+{
+	background : linear-gradient(180deg, #c0c0ff, #8888f1);
+	box-shadow : -1px 1px 2px rgba(0, 0, 0, .5);
+	padding : 0.5em 0 0.5em 0.5em;
+	height : 3em;
+}
+
+header ul
+{
+	display : block;
+}
+
+header ul li
+{
+	display : inline;
+	border : 1px solid blue;
+	float : left;
+	margin : 0.3em;
+	heigth : 1em;
+	text-decoration : none;
+	list-style : none;
+	width : 100px;
+	text-align : center;
+	color : black;
+	background : rgba(240, 240, 255, 0.9);
+	box-shadow : 1px 1px 3px black;
+	border-radius : .5em;
+}
+
+header ul li:hover
+{
+	background : rgba(200, 200, 255, 0.9);
+}
+
+header ul li:active
+{
+	background : rgba(150, 150, 255, 0.9);
+}
+
+header .goback
+{
+	margin-left : 5%;
+}
+
+/*=====================================================================*/
+#main
+{
+	display : flex;
+	justify-content : space-between;
+	width : 60%;
+	margin : 3% 0 3% 20%;
+}
+
+.code
+{
+	float : left;
+	width : 50%;
+	height : 12em;
+	border : 1px solid darkblue;
+}
+
+.code .area
+{
+	height : 10em;
+	padding : 0.5em;
+	overflow : scroll;
+}
+
+::-webkit-scrollbar
+{
+	-webkit-appearance : none;
+	width : 5px;
+}
+
+::-webkit-scrollbar-thumb
+{
+	border-radius : 5px;
+	background-color : rgba(0,0,0,.5);
+	-webkit-box-shadow : 0 0 1px rgba(255,255,255, .5);
+}
+
+.code .area pre
+{
+	width : 95%;
+}
+
+.code .area pre:hover
+{
+	background : rgba( 200, 200, 255, 1);
+}
+
+.code .active
+{
+	background : rgba( 200, 200, 255, 0.6);
+}
+
+/*=====================================================================*/
+.output
+{
+	width : 40%;
+	float : right;
+	border : 1px solid darkblue;
+}
+
+.output .area
+{
+	height : 5em;
+	font-size : 1.5em;
+	width : 100%;
+}
+
+/*=====================================================================*/
+#input
+{
+	display : flex;
+	justify-content : space-between;
+	width : 90%;
+	height : 11em;
+	margin : 0% 0% 0% 5%;
+	background : rgb(200, 200, 230, 0.3);
+}
+
+#input button, #debug button
+{
+	display : inline;
+	text-decoration : none;
+	list-style : none;
+	text-align : center;
+	color : black;
+	box-shadow : 1px 1px 3px black;
+	border-radius : 1.5em;
+}
+
+/*=================*/
+#input .mnemonics
+{
+	display : flex;
+	flex-wrap : wrap;
+	justify-content : space-between;
+	width : 38%;
+}
+
+#input .mnemonics button
+{
+	width : 22%;
+	margin-bottom : 3%;
+}
+
+#input .numbers
+{
+	display : flex;
+	flex-wrap : wrap;
+	justify-content : space-between;
+	width : 28%;
+}
+
+#input .numbers button
+{
+	width : 18%;
+	margin-bottom : 3%;
+}
+
+#input .controls
+{
+	display : flex;
+	flex-wrap : wrap;
+	justify-content : space-between;
+	width : 28%;
+}
+
+#input .controls button
+{
+	width : 22%;
+	margin-bottom : 3%;
+}
+
+/*=====================================================================*/
+#filemenuOnLoad, #filemenuOnDownload, #filemenu, #demo
+{
+	z-index : 2;
+	position : fixed;
+	left : 0%;
+	top : 0%;
+	width : 48%;
+	margin : 23vh 0 0 26%;
+	background : white;
+	border : 1px solid darkblue;
+	border-radius : 5px;
+	text-align : center;
+	display : none;
+	overflow : hidden;
+}
+
+/*design style*/
+.btn, #filemenu button
+{
+	display : block;
+	clear : both;
+	border : 1px solid blue;
+	text-align : center;
+	width : 60%;
+	margin : 10px 0 3% 20%;
+	color : black;
+	background : rgba(240, 240, 255, 0.9);
+	box-shadow : 1px 1px 3px black;
+	border-radius : .5em;
+	font-size : 1.2em;
+}
+
+.btn:hover, #filemenu button:hover
+{
+	background : rgba(200, 200, 255, 0.9);
+}
+
+#filemenu button:active, .btn:active
+{
+	background : rgba(150, 150, 255, 0.9);
+}
+
+#filemenuOnLoad
+{
+	display : none;
+}
+
+#filemenuOnDownload input, #filemenuOnLoad input
+{
+	margin : 5% 5%;
+	width : 90%;
+	height : 1.7em;
+	padding : 0.3em;
+}
+
+/*=====================================================================*/
+#demo
+{
+	margin-top : 12vh;
+}
+
+#demo .contents
+{
+	width : 93%;
+	height : 45vh;
+	margin : 2% 0 0 2.5%;
+	padding : 10px 0 10px 10px;
+	overflow : scroll;
+	text-align : left;
+}
+
+::-webkit-scrollbar
+{
+	-webkit-appearance : none;
+	width : 5px;
+}
+
+::-webkit-scrollbar-thumb
+{
+	border-radius : 5px;
+	background-color : rgba(0,0,0,.5);
+	-webkit-box-shadow : 0 0 1px rgba(255,255,255, .5);
+}
+
+#demo .item
+{
+	margin : 3% 0 10px 0;
+	width : 95%;
+	height : 3.2em;
+	overflow : hidden;
+	text-align : left;
+	border : 1px solid darkblue;
+}
+
+#demo .item:hover
+{
+	background : rgba(200, 200, 255, 0.9);
+}
+
+#demo .item h2, #demo .item p
+{
+	font-size : 0.9em;
+}
+
+/*=====================================================================*/
+#debug
+{
+	display : none;
+	width : 80%;
+	margin-left : 10%;
+	height : 11em;
+	border : 1px solid darkblue;
+}
+
+#debug p
+{
+	font-size : 0.8em;
+}
+
+#debug button
+{
+	display : block;
+	width : 100%;
+	height : 2em;
+	margin-bottom : 1em;
+}
+
+#debug .contents
+{
+	display : flex;
+	justify-content : space-between;
+}
+
+#debug .commands
+{
+	display : inline-block;
+	width : 30%;
+	margin : 1em 0 0 0.3em;
+	height : 8em;
+}
+
+#debug .view
+{
+	display : inline-block;
+	width : 20%;
+	margin : 0.5em;
+}
+
+#debug .memory
+{
+	width : 50%;
+	margin-right : 0.5em;
+}
+
+#debug .memory .memcell
+{
+	width : 95%;
+	height : 6em;
+	padding : 0.5em 0 0.5em 0.5em;
+	overflow : scroll;
+	border : 1px solid blue;
+}
+
+::-webkit-scrollbar
+{
+	-webkit-appearance : none;
+	width : 5px;
+}
+
+::-webkit-scrollbar-thumb
+{
+	border-radius : 5px;
+	background-color : rgba(0,0,0,.5);
+	-webkit-box-shadow : 0 0 1px rgba(255,255,255, .5);
+}
+
+/*=====================================================================*/
+#helpHTML .text
+{
+	width : 60%;
+	margin-left : 2%;
+}
+
+#helpHTML .text p
+{
+	text-indent : 2em;
+	margin-top : 1em;
+	line-height : 1.5em;
+}
+
+#helpHTML .text h2
+{
+	margin-top : 1em;
+}
+
+#helpHTML .text p kbd
+{
+	padding : 0.2em;
+	background-color : rgba(200, 200, 200, 1);
+}
+
+/*=====================================================================*/
+/*=====================================================================*/
+@media(max-width: 768px)
+{
+	#main {
+		width : 90%;
+	margin : 3% 0 3% 5%;
+}
+
+.code
+{
+	float : left;
+	width : 50%;
+	height : 9em;
+}
+
+.code .area
+{
+	height : 6em;
+	padding : 0.5em 0em 0.5em 0.5em;
+}
+
+#input
+{
+	width : 95%;
+	margin : 0% 0% 0% 2.5%;
+	height : 12.5em;
+}
+
+/*=================*/
+#input .mnemonics
+{
+	display : flex;
+	flex-wrap : wrap;
+	justify-content : space-between;
+	width : 43%;
+}
+
+#input .mnemonics button
+{
+	width : 32%;
+	margin-bottom : 3%;
+}
+
+#input .numbers
+{
+	display : flex;
+	flex-wrap : wrap;
+	justify-content : space-between;
+	width : 33%;
+}
+
+#input .numbers button
+{
+	width : 18%;
+	margin-bottom : 3%;
+}
+
+#input .controls
+{
+	display : flex;
+	flex-wrap : wrap;
+	justify-content : space-between;
+	width : 18%;
+}
+
+#input .controls button
+{
+	width : 98%;
+	margin-bottom : 3%;
+}
+
+#filemenuOnLoad, #filemenu, #filemenuOnDownload, #demo
+{
+	width : 70%;
+	margin : 14vh 0 0 15%;
+}
+
+.btn, #filemenu button
+{
+	font-size : 1em;
+}
+
+#debug
+{
+	width : 95%;
+	margin-left : 2.5%;
+	height : 10em;
+}
+
+#debug p
+{
+	font-size : 0.78em;
+}
+
+#demo .item
+{
+	margin : 2% 0 8px 0;
+}
+
+#helpHTML .text
+{
+	width : 90%;
+	margin-left : 5%;
+}
+
+/*=====================================================================*/
+/*=====================================================================*/
+}
+
+
+
+
+@media(max-width: 480px)
+{
+	header h3 {
+		font-size : 0.9em;
+}
+
+header
+{
+	padding : 0.5em 0 0.5em 0.5em;
+	height : 2.6em;
+}
+
+header ul li
+{
+	margin : 0.3em;
+	width : 60px;
+	font-size : 0.9em;
+}
+
+header .goback
+{
+	float : right;
+	margin-left : 0%;
+}
+
+#main
+{
+	width : 95%;
+	margin : 3% 0% 0% 2.5%;
+}
+
+.code
+{
+	float : left;
+	width : 50%;
+	height : 12em;
+}
+
+.code .area
+{
+	height : 9.8em;
+	padding : 0.5em 0em 0.5em 0.5em;
+}
+
+.code .area pre
+{
+	font-size : 0.8em;
+}
+
+.output
+{
+	width : 45%;
+	float : left;
+	height : 7.5em;
+}
+
+.output .area
+{
+	height : 5.2em;
+	font-size : 1.2em;
+}
+
+#input
+{
+	width : 98%;
+	height : 16em;
+	margin : 3% 0% 0% 1%;
+}
+
+/*=================*/
+#input .mnemonics
+{
+	display : flex;
+	flex-wrap : wrap;
+	justify-content : space-between;
+	width : 43%;
+}
+
+#input .mnemonics button
+{
+	width : 48%;
+	margin-bottom : 1%;
+	font-size : 0.7em;
+}
+
+#input .numbers
+{
+	display : flex;
+	flex-wrap : wrap;
+	justify-content : space-between;
+	width : 33%;
+}
+
+#input .numbers button
+{
+	width : 48%;
+	margin-bottom : 3%;
+}
+
+#input .controls
+{
+	display : flex;
+	flex-wrap : wrap;
+	justify-content : space-between;
+	width : 18%;
+}
+
+#input .controls button
+{
+	width : 98%;
+	margin-bottom : 3%;
+}
+
+#filemenuOnLoad, #filemenu, #filemenuOnDownload, #demo
+{
+	width : 90%;
+	margin : 20vh 0 0 5%;
+}
+
+#debug
+{
+	height : 11em;
+	margin-top : 5%;
+}
+
+#debug p
+{
+	font-size : 0.7em;
+}
+
+#debug button
+{
+	height : 2.5em;
+}

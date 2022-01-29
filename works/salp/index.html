@@ -1,0 +1,495 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+    
+	<meta name="viewport" 			content="width=device-width">
+	<meta name="Keyword" 			content="Assembly Basic Language Learning Program"/>
+	<meta name="description" 	content="Learn a Basic assembly language created by A.A. It is very basic"/>
+	<meta name="author" 				content="Anghelo Amir" />
+	<meta name="revised" 			content="June 2019" />
+	<!--
+	<base href="gheloamir.co.nf"/>		
+	-->
+    <title>Basic Assembly Lang Learning JS</title>
+	<link rel="stylesheet" href="assembly.css"></link>
+
+	</head>
+	<body>
+	
+	<section id="mainHTML">
+	
+<!-- ***************************************************************************************************** -->
+	<header>
+		<h3>SALP Assembly</h3>
+		<ul>
+			<li id="crun"   onclick="runProgram()">Run</li>
+			<li id="cstop" onclick="stopProgram()">Stop</li>
+			<li onclick="document.getElementById('demo').style.display = 'block';
+									document.getElementById('blackbg').style.display = 'block';
+									document.body.style.overflow = 'hidden';
+									stopProgram(true);">Demo</li>
+			<li onclick="stopProgram(true);
+									document.getElementById('mainHTML').style.display = 'none';
+									document.getElementById('helpHTML').style.display = 'block';
+									">Help</li>
+			
+		</ul>
+	</header>
+
+<!-- ***************************************************************************************************** -->
+	<section id="main">
+		<div class="code">
+			<div class="top">
+			 	<p>Program </p>
+			</div>
+			<div class="area">
+				<pre class="active">000 BRK</pre>
+			</div>
+		</div>
+		
+		<!-- ********************************************* -->
+		<div class="output">
+		
+			<div class="top">
+				<p>Output Screen</p>
+			</div>
+			<div class="area">
+				<pre id="screen1">          </pre>
+				<pre id="screen2">          </pre>
+				<pre id="screen3">          </pre>
+				<pre id="screen4">          </pre>
+			</div>
+			
+		</div>
+	</section>
+
+<!-- ***************************************************************************************************** -->
+	<section id="input">
+		<div class="mnemonics">
+			<button onclick="setText('LOAD	000')">LOAD</button>
+			<button onclick="setText('LOAD_AT	000')">LOAD AT</button>
+			<button onclick="setText('STORE	000')">STORE </button>
+			<button onclick="setText('STORE_AT	000')">STORE AT</button>
+			<button onclick="setText('COMPare	000')">COMPare</button>
+			<button onclick="setText('COMPare_AT	000')">COMPare AT</button>
+			<button onclick="setText('JmpEQual	000')">JumpEQual</button>
+			<button onclick="setText('JmpLess	000')">JumpIfLess</button>
+			<button onclick="setText('JmpMore	000')">JumpIfMore</button>
+			<button onclick="setText('Jump	000')">JUMP</button>
+			<button onclick="setText('ADD		000')">ADD</button>
+			<button onclick="setText('MINus	000')">MINus</button>
+			<button onclick="setText('INC_AT	000')">INCrement AT</button>
+			<button onclick="setText('DEC_AT	000')">DECrement AT</button>
+		</div>
+		<div class="numbers">
+			<button onclick="inputNumber('1')">1</button>
+			<button onclick="inputNumber('2')">2</button>
+			<button onclick="inputNumber('3')">3</button>
+			<button onclick="inputNumber('4')">4</button>
+			<button onclick="inputNumber('5')">5</button>
+			<button onclick="inputNumber('6')">6</button>
+			<button onclick="inputNumber('7')">7</button>
+			<button onclick="inputNumber('8')">8</button>
+			<button onclick="inputNumber('9')">9</button>
+			<button onclick="inputNumber('0')">0</button>
+			<button onclick="moveLine(true)">Next Line</button>
+			<button onclick="moveLine(false)">Prev Line</button>
+		</div>
+		<div class="controls">
+			<button onclick="setText('BRK')">			Clear</button>
+			<button onclick="addNewLine(true,'BRK')">	New Line</button>
+			<button onclick="addNewLine(false,'BRK')">	Insert</button>
+			<button onclick="deleteLine()">				Delete</button>
+
+			<button onclick="
+				document.getElementById('filemenu').style.display = 'block';
+				document.getElementById('blackbg').style.display = 'block';
+				document.body.style.overflow = 'hidden';
+				stopProgram(true);
+				"> File Menu </button>
+	
+		</div>
+	</section>
+<!-- ***************************************************************************************************** -->
+	<div id="halt">Progam Stopped</div>
+	
+<!-- These elements are hidden by default or for a cetain trick -->
+	<div id="blackbg"></div>
+    
+<!-- ***************************************************************************************************** -->	
+	<div id="filemenu">
+		<div class="top">
+			<p>File Menu</p>
+		</div>
+		<button onclick="
+			document.getElementById('filemenu').style.display = 'none';
+			document.getElementById('filemenuOnLoad').style.display = 'block';
+		">Load a File</button>
+		<button onclick="
+			document.getElementById('filemenu').style.display = 'none';
+			document.getElementById('filemenuOnDownload').style.display = 'block';
+		">Download File</button>
+		<button onclick="
+			document.getElementById('input').style.display = 'none';
+			document.getElementById('crun').style.display = 'none';
+			document.getElementById('cstop').style.display = 'none';
+			document.getElementById('debug').style.display = 'block';
+			document.getElementById('fcancel').click();
+			initDebugging();">
+			Debug</button>
+		<button id="fcancel" onclick="
+			document.getElementById('filemenu').style.display = 'none';
+			document.getElementById('blackbg').style.display = 'none';
+			document.body.style.overflow = 'scroll';
+			"> Cancel </button>
+	</div>
+	
+<!-- ***************************************************************************************************** -->
+	<div id="filemenuOnLoad">
+		<div class="top"> <p>Load File Menu</p> </div>
+		<input class="btn" type="file" onchange="
+				document.getElementById('filemenuOnLoad').style.display = 'none';
+				document.getElementById('blackbg').style.display = 'none';
+				document.body.style.overflow = 'scroll';
+				loadFile();">
+	<button class="btn" onclick="
+				document.getElementById('filemenuOnLoad').style.display = 'none';
+				document.getElementById('blackbg').style.display = 'none';
+				document.body.style.overflow = 'scroll';
+				"> Cancel </button>
+				<br/>
+				<p style="font-size: 0.8em;">
+					*please DO NOT DELETE or RENAME the file while it is being
+				loaded in the browser, it can cause device storage failure.
+				To unload, reload the page or close the browser.
+				</p>
+	</div>
+	
+	<div id="filemenuOnDownload">
+		<div class="top"> <p>Download File Menu</p> </div>
+		<h4>Enter File Name:</h4>
+		<input class="btn" name="filename" type="text" maxlength="24" id="fileNameField" >
+		<button class="btn" onclick="download()">Download Your File</button>
+		
+	<button class="btn" onclick="
+				document.getElementById('filemenuOnDownload').style.display = 'none';
+				document.getElementById('blackbg').style.display = 'none';
+				document.body.style.overflow = 'scroll';
+				"> Cancel </button>
+	</div>
+
+<!-- ***************************************************************************************************** -->
+	<div id="demo">
+		<div class="top"> <p>Demo Menu</p> </div>
+		<div class="contents">
+			<div class="item" onclick="loadDemo(0);">
+				<div class="top">The Basic </div>
+				<p>Show the the word "HI!" on the screen using LOAD and STORE instruction.</p>
+			</div>
+			<div class="item" onclick="loadDemo(1);">
+				<div class="top">Hello World</div>
+				<p>Hello World program. Using a series of LOAD and STORE instructions</p>
+			</div>
+			<div class="item" onclick="loadDemo(2);">
+				<div class="top">Loop 1</div>
+				<p>A simple loop that use INCreament_AT and Jump instruction</p>
+			</div>
+			<div class="item" onclick="loadDemo(3);">
+				<div class="top">Loop 2</div>
+				<p>Looping with use of COMPare, JumpLess and JumpEQual instruction</p>
+			</div>
+			<div class="item" onclick="loadDemo(4);">
+				<div class="top">Fill char</div>
+				<p>Fill character "A" in the screen then the program stop. It use STORE_AT to achieve the effect</p>
+			</div>
+			<div class="item" onclick="loadDemo(5);">
+				<div class="top">Flood char</div>
+				<p>Show an animated fill char using a series of STORE instruction</p>
+			</div>
+			<div class="item" onclick="loadDemo(6);">
+				<div class="top">Animated Fill char</div>
+				<p>A more advance fill char effect. Filling one by one at a time</p>
+			</div>
+			<div class="item" onclick="loadDemo(7);">
+				<div class="top">Moving Text</div>
+				<p>Show the word "HI!" and move it across the screen</p>
+			</div>
+			<div class="item" onclick="loadDemo(8);">
+				<div class="top">Counter</div>
+				<p>Show a counter in the screen and automatically increament it</p>
+			</div>
+		</div>
+		
+		<button class="btn" onclick="
+				document.getElementById('demo').style.display = 'none';
+				document.getElementById('blackbg').style.display = 'none';
+				document.body.style.overflow = 'scroll';
+				"> Cancel </button>
+	</div>
+<!-- ***************************************************************************************************** -->
+		<section id="debug">
+			<div class="top">Debugging</div>
+			<div class="contents">
+				<div class="commands">
+					<button onclick="executeOneLine();">
+						Executed Current Line</button>
+					<button onclick=" initDebugging();">
+						Start all over</button>
+					<button onclick="
+						document.getElementById('input').style.display = 'flex';
+						document.getElementById('crun').style.display = 'inline';
+						document.getElementById('cstop').style.display = 'inline';
+						document.getElementById('debug').style.display = 'none';
+						closeDebug();">
+						Close Deugging</button>
+				</div>
+			
+				<div class="view">
+					<p class="pc">PC</p>
+					<p class="acc">Acc</p>
+					<p class="result">Result: Less</p>
+					<p class="ins">Instruction: LOAD</p>
+					<p class="val">Value: </p>
+				</div>
+				
+				<div class="memory">
+					<p>The memory cells</p>
+					<div class="memcell">
+						<p id="l0"><b>----- 000 001 002 003 004 005 006 007 008 009</b></p>
+						<p id="l1"><b>000</b></p>
+						<p id="l2"><b>010</b> </p>
+						<p id="l3"><b>020</b> </p>
+						<p id="l4"><b>030</b> </p>
+						<p id="l5"><b>040</b> </p>
+						<p id="l6"><b>050</b> </p>
+						<p id="l7"><b>060</b> </p>
+						<p id="l8"><b>070</b> </p>
+						<p id="l9"><b>080</b> </p>
+						<p id="l10"><b>090</b> </p>
+						<p id="l11"><b>100</b> </p>
+						<p id="l12"><b>110</b> </p>
+						<p id="l13"><b>120</b> </p>
+						<p id="l14"><b>130</b> </p>
+						<p id="l15"><b>140</b> </p>
+						<p id="l16"><b>150</b> </p>
+						<p id="l17"><b>160</b> </p>
+						<p id="l18"><b>170</b> </p>
+						<p id="l19"><b>180</b> </p>
+						<p id="l20"><b>190</b> </p>
+						<p id="l21"><b>200</b> </p>
+						<p id="l22"><b>210</b> </p>
+						<p id="l23"><b>220</b> </p>
+						<p id="l24"><b>230</b> </p>
+						<p id="l25"><b>240</b> </p>
+						<p id="l26"><b>250</b> </p>
+					</div>
+				</div>
+				
+			</div>
+		</section>
+
+<!-- ***************************************************************************************************** -->	
+	</section>	
+<!-- ***************************************************************************************************** -->
+<!-- ***************************************************************************************************** -->
+<!-- ***************************************************************************************************** -->
+	<section id='helpHTML'>
+		
+		<header>
+		<h3>SALP Assembler</h3>
+		<ul>
+			<li onclick="document.getElementById('helpHTML').style.display = 'none';
+									document.getElementById('mainHTML').style.display = 'block';
+									">Close Help</li>
+			<li class="goback">Go Back</li>
+		</ul>
+	</header>
+<!-- ***************************************************************************************************** -->
+	<div class="text">
+		<h2>Introduction</h2>
+		<p>
+			Welcome  to <b>SALP (Simple Assembly Language Programming)</b> created by Ghelo Amir*. SALP is
+			a simple assembly  language based from 6502 instruction set but with much reduce features.
+			It's aim is to introduce the assembly language programming without the complexity of stacks, hexadecimal
+			notation (in SALP we use decimal notation),  extra accumulator, too many instruction to remember and
+			it is much a real assembly language. I have seen many assembler that mix high level language to assembly langugage
+			which is for me, violates a real assembly lang. programming.
+			SALP is a
+			very limited assembly  language,
+			it features a 8-bit adressing mode (upto 255 instruction and 255 memory cell), single  Accumulator, a 3
+			flags (less, more  and equal flags) and only  15 opcodes(instruction) that can be used. Despite these limitation,
+			SALP is much easier to learn and I think that if a man learn SALP, then jumping into real assembly language such as
+			x86 would be much easier to understand.
+		</p>
+		<p>
+			Nowadays, learning an assembly language would be just a waste of time as high  level programming language
+			replace them. Codes created with an assembly are really hard to decode and overtime, extreamly hard to maintain.
+			Mostly that study assembly language are Computer Scientist but usually they go not to deep with it. 
+			My first ever learned programming language is 6502 because of the
+			J2ME app named JBit. Still amaze back then that there was an app that
+			emulates a 6502 assembly language.
+		</p>
+		<button onclick="document.getElementById('helpHTML').style.display = 'none';
+									document.getElementById('mainHTML').style.display = 'block';
+									">Close Help</button>
+		
+		<h2>User Interface Explained</h2>
+		
+		<h2>The Basic of SALP</h2>
+		<p>
+			In SALP, there is a single variable called "Accumulator" that hold only a single byte of data.
+			Usually, before any operation can be made (such as addition, comparison) the accumulator
+			variable  must be first be modified(change/loaded). This done by
+			<kbd>LOAD &ltvalue></kbd> instruction. To load a value (byte) of 65 into the accumulator, use
+			the instruction LOAD with value  of 65, as in: <kbd>LOAD 65</kbd>. The <kbd>LOAD_AT &ltvalue></kbd>
+			is use to set the value of the accumulator from a memory cell. For example, to load the value of the
+			accumulator from the  memory cell number 17, we use <kbd>LOAD_AT 17</kbd>.
+		</p>
+		<p>
+			Usually after the accumulator variable has been change, a storing of data is done by the
+			instruction <kbd>STORE &lttarget mem cell></kbd>. For example, to store the current value
+			of the accumulator into memory cell number 40, we use <kbd>STORE 40</kbd>. Example program:
+			Create a program that set the value of the accumulator to 70 and store the current value of the accumulator into memory 
+			cell number 50, then it would be: <kbd>LOAD 70</kbd> <kbd>STORE 50</kbd>. The <kbd>STORE_AT &ltn></kbd> is
+			a complicated instruction and be discuss later.
+		</p>
+		<p>
+			The <b>Memory Cell</b> is an array of 8-bit (1 byte) with upto 256 memory cell and address from 0 to 255.
+			Some part of the memory cell is connected with the display. Memory cell from 40 to 79 are special memory
+			cell that when modified, allow showing characters into the output screen. The first line is at memory
+			cell 40 to 49, the second is 50 to 59 and so on. There are only 4 line of characters and each is capable
+			of showing only 10 characters (for a total of 40 characters). However, before any character or changes be
+			visible  into the screen, the "flush" memory cell number 80 must be modified with any value.
+		</p>
+		<p>
+			<b>Example:</b> to show a character "A" into the screen we use: <br/>
+			<kbd>LOAD 65</kbd> <kbd>STORE 40</kbd> <kbd>STORE 80</kbd>.
+			The value 65 represent the character A in according to ANSCII. Below is a trimmed ANSCII table with values
+			and the corresponding equivalent character.
+			See an ANSCII Character set to see all of the available character<br/>
+		</p>
+		<br/>
+		<table border="1" cellpadding="2" cellspacing="2">
+			<tr><td><b></b></td> <td>00</td> <td>01</td> <td>02</td> <td>03</td> <td>04</td> <td>05</td> <td>06</td> <td>07</td> <td>08</td> <td>09</td></tr>
+			<tr><td>3x</td> <td>0</td> <td>1</td> <td>2</td> <td>3</td> <td>4</td> <td>5</td> <td>6</td> <td>7</td> <td>8</td> <td>9</td></tr>
+			<tr><td>4x</td> <td>0</td> <td>1</td> <td>2</td> <td>3</td> <td>4</td> <td>5</td> <td>6</td> <td>7</td> <td>8</td> <td>9</td></tr>
+			<tr><td>5x</td> <td>0</td> <td>1</td> <td>2</td> <td>3</td> <td>4</td> <td>5</td> <td>6</td> <td>7</td> <td>8</td> <td>9</td></tr>	
+			<tr><td>6x</td> <td>0</td> <td>1</td> <td>2</td> <td>3</td> <td>4</td> <td>5</td> <td>6</td> <td>7</td> <td>8</td> <td>9</td></tr>		
+			<tr><td>7x</td> <td>0</td> <td>1</td> <td>2</td> <td>3</td> <td>4</td> <td>5</td> <td>6</td> <td>7</td> <td>8</td> <td>9</td></tr>		
+			<tr><td>8x</td> <td>0</td> <td>1</td> <td>2</td> <td>3</td> <td>4</td> <td>5</td> <td>6</td> <td>7</td> <td>8</td> <td>9</td></tr>				
+		</table>
+		<p>
+			Have a look on the demo programs named <b>The Basic</b> and <b>Hello World</b> program.
+			Then try to create a program that fill the screen with character A.
+			The code would be somehow look like this: <br/>
+			<kbd>LOAD 65</kbd> <kbd>STORE 40</kbd> <kbd>STORE 41</kbd> .... <kbd>STORE 80</kbd>
+			<br/> <br/>
+			<b>Note:</b> The instruction <kbd>BRK</kbd> which means BReaK. When it encounters, it cause an immediate
+			termination of the program.
+			</p>
+			<button onclick="document.getElementById('helpHTML').style.display = 'none';
+									document.getElementById('mainHTML').style.display = 'block';
+									">Close Help</button>
+		
+		<h2>Looping</h2>
+		<p>
+			Looping is an event that cause a code to be repeatedly executed. In SALP it is done by instruction
+			<kbd>Jump</kbd>. <kbd>Jump</kbd> is  an instruction that cause the next executed  line to be transfer
+			to a line set by the Jump instruction.			
+			For example (now include the line number): <br/>
+			<kbd>000 LOAD 65</kbd> <br/>
+			<kbd>001 STORE 40</kbd> <br/>
+			<kbd>002 STORE 80</kbd> <br/>
+			<kbd>003 Jump 000</kbd>
+		</p>
+		<p>
+			The program above it first execute the first instruction, which <kbd>LOAD 65</kbd> which set the accumulator
+			to 65,.Then <kbd>STORE 40</kbd> its means that save/store the current value of the accumulator into
+			the memory cell number 40, and <kbd>STORE 80</kbd>  store it to mem cell 80 (which cause a character to be seen).
+			The program is looping but the effect cannot be notice simply because there is no changes being made
+			to the memory cell 40 (it is always has a value of 65). The instruction <kbd>INCreament_AT &ltmemcell></kbd>
+			increament the target memory cell by 1. So adding <kbd>INCreamet_AT</kbd> instruction in the previus program,
+			we could now see the effect of the looping. <br/>
+			<kbd>000 LOAD 65</kbd> <br/>
+			<kbd>001 STORE 40</kbd> <br/>
+			<kbd>002 INCreament_AT 40</kbd> <br/>
+			<kbd>003 STORE 80</kbd> <br/>
+			<kbd>004 Jump 002</kbd>
+		</p>
+		<p>
+		The program above when run, we see a very fast changing of a character in the screen because the
+		it loops very fast. To slow down the execution speed of the program, just store any value to memory cell
+		30, as in: <br/>
+		<kbd>000 LOAD 65</kbd> <br/>
+		<kbd>001 STORE 40</kbd> <br/>
+		<kbd>002 INCreament_AT 40</kbd> <br/>
+		<kbd>003 STORE 80</kbd> <br/>
+		<kbd>004 STORE 30</kbd> <br/>
+		<kbd>005 Jump 002</kbd>
+		</p>
+		<button onclick="document.getElementById('helpHTML').style.display = 'none';
+									document.getElementById('mainHTML').style.display = 'block';
+									">Close Help</button>
+		
+		<h2>Looping 2</h2>
+		<p>
+			It is common for a loop to execute only for cetain amount of repertion. In SALP, this done by the instruction
+			<kbd>COMPare</kbd> and <kbd>COMPare_AT</kbd>. <kbd>JumpLess</kbd>, <kbd>JumpEQual</kbd> and
+			<kbd>JumpMore</kbd> are usually follows. Compare instruction are use to compare the current value
+			of the accumulator to the comparing value. JumpLess, JumpMore and JumpEQual is used to jump if the result
+			of comparison match.
+			<br></br>
+			<b>Lets take an example:</b> Create a program that set the value of memory cell number 40 to value of 65,
+			then increament it until its value become 75 then display the resullt then terminates. ANS: <br/>
+		<kbd>000 LOAD 65</kbd> <br/>
+		<kbd>001 STORE 40</kbd> <br/>
+		<kbd>002 INCreament_AT 40</kbd> <br/>
+		<kbd>003 LOAD_AT 40</kbd> <br/>
+		<kbd>004 COMPare 75</kbd> <br/>
+		<kbd>005 JumpLess 002</kbd> <br/>
+		<kbd>006 STORE 30</kbd>  <br/>
+		<kbd>007 BRK</kbd>
+		<br/>
+		<br/>
+		In the line 005,<kbd>005 JumpLess 002</kbd> means jump if the result of the comparison is less than accumulator
+		otherwise continue in executing the line 006.
+		<br/>
+ 		</p>
+		<button onclick="document.getElementById('helpHTML').style.display = 'none';
+									document.getElementById('mainHTML').style.display = 'block';
+									">Close Help</button>
+		
+		<h2>Instructions Summary</h2>
+		<p> These  are the instruction of SALP: <br/>
+		<kbd>LOAD nnn</kbd> Set the value of the Accumulator <br/>
+		<kbd>LOAD_AT nnn</kbd> Set the value of accumulator from a memory cell<br/>
+		<kbd>STORE nnn</kbd> Save the current value of the accumulator to target memory cell<br/>
+		<kbd>STORE_AT nnn</kbd> Save the current value of the accumulator to target memory cell defined
+				in the current cell. EX: if memory at 0 has a value of 40 then the instruction <kbd>STORE_AT 0</kbd>
+				will save the accumulator value to memory cell 40. <br/>
+		<kbd>COMPare</kbd> Compare a value to the accumulator <br/>
+		<kbd>COMPare_AT</kbd> Compare a value from a  memory cell to the accumulator <br/>
+		<kbd>JumpLess</kbd> Jump if the result of COMPare is less <br/>
+		<kbd>JumpEQual</kbd> Jump if the result of COMPare is equal <br/>
+		<kbd>JumpMore</kbd> Jump if the result was more than the accumulator <br/>
+		<kbd>Jump</kbd> Jump the next executed  instruction
+		<kbd>INCreament_AT</kbd> Increament the target memory cell <br/>
+		<kbd>DECreament_AT</kbd> Decreament the target memory cell <br/>
+		<kbd>ADD</kbd> Add the with accumulator  then save the result  to the accumulator <br/>
+		<kbd>MINus</kbd> Substract the current value of the accumulator <br/>
+		
+		</p>
+		<button onclick="document.getElementById('helpHTML').style.display = 'none';
+									document.getElementById('mainHTML').style.display = 'block';
+									">Close Help</button>
+<!-- ======= -->
+	</div>
+
+<!-- ***************************************************************************************************** -->	
+	</section>
+	<script src="assembly.js"></script>
+	</body>
+<!-- ***************************************************************************************************** -->
+</html>
+
